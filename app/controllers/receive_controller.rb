@@ -2,10 +2,6 @@ class ReceiveController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def receive
-    if params[:hook]
-      render text: 'ok' and return
-    end
-
     payload = JSON.parse(params[:payload])
     
     if payload['action'] == 'opened' || payload['action'] == 'synchronize'
