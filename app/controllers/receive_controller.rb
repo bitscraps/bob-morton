@@ -3,11 +3,12 @@ class ReceiveController < ApplicationController
 
   def receive
     payload = JSON.parse(params[:payload])
-    puts payload
 
-    `git clone #{payload["repository"]["html_url"]} /tmp/201f8120bc5c67cf5205d4855b8755c6fc465423`
-    warnings = `cd /tmp/201f8120bc5c67cf5205d4855b8755c6fc465423 && git checkout 201f8120bc5c67cf5205d4855b8755c6fc465423 && rubocop --format simple | grep "offenses detected"`
-    `rm -rf /tmp/201f8120bc5c67cf5205d4855b8755c6fc465423`
-    render text: warnings
+    if payload['action'] == 'opened' || payload['action'] == 'synchronize'
+      OpenedRubocopWorker.perform_async(payload)
+      job = 'opened'
+    end
+
+    render text: "Job #{job} kicked off"
   end
 end
