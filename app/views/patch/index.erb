@@ -1,0 +1,36 @@
+<style>
+ html { font-family: 'San Francisco' }
+ .file {
+  padding:20px;
+ }
+ .patch {
+  margin: 10px 0px;
+ }
+
+ .violations {
+
+ }
+
+ pre:before { content: attr(data-content); display: inline-block;text-align:left;padding:3px;border-right: 1px SOLID #CCC;  }
+}
+</style>
+
+<%- @response.each do |file| %>
+  <div class=file>
+    <%= file.filename %>
+    <div class=patch>
+      <% GitDiffParser::Patch.new(file.patch).changed_lines.each do |line| %>
+        <pre data-content="<%= line.number %>" style="margin:0;padding:0;line-height:1;background-color:<%= line.content.match(/^+/) ? "#EEFFEB" : "#FFECEC" %>"> <%= line.content.gsub(/^[+|-]/, '') %></pre>
+      <% end %>
+    </div>
+    <div class="violations">
+      <% @line_changes = "(#{GitDiffParser::Patch.new(file.patch).changed_lines.map{|cl| cl.number}.join("|")})" %>
+      <% @warnings.each do |warning| %>
+        
+        <% if warning =~ /#{file.filename}:#{@line_changes}:/  %>
+        <%= warning %>
+        <%end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

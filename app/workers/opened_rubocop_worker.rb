@@ -17,16 +17,16 @@ class OpenedRubocopWorker
 
     `cd /tmp/#{repo_name} && git pull`
 
-    initial_warnings = `cd /tmp/#{repo_name} && git checkout #{base_sha} && rubocop --format simple | grep "offenses detected"`
-    current_warnings = `cd /tmp/#{repo_name} && git checkout #{merge_sha} && rubocop --format simple | grep "offenses detected"`
+    initial_warnings_output = `cd /tmp/#{repo_name} && git checkout #{base_sha} && rubocop`
+    current_warnings_output = `cd /tmp/#{repo_name} && git checkout #{merge_sha} && rubocop`
 
-    initial_warnings = /, (.*?) offenses detected/.match(initial_warnings)[1]
-    current_warnings = /, (.*?) offenses detected/.match(current_warnings)[1]
+    initial_warnings = /, (.*?) offenses detected/.match(initial_warnings_output)[1]
+    current_warnings = /, (.*?) offenses detected/.match(current_warnings_output)[1]
 
     initial_warnings = 0 if initial_warnings == 'no'
     current_warnings = 0 if current_warnings == 'no'
 
-    commits = Commit.new(sha: merge_sha, merge_branch_rubocop_warnings: initial_warnings, this_branch_rubocop_warnings: current_warnings)
+    commits = Commit.new(sha: merge_sha, merge_branch_rubocop_warnings: initial_warnings, this_branch_rubocop_warnings: current_warnings, rubocop_output: current_warnings_output)
     commits.save!
 
     puts initial_warnings
