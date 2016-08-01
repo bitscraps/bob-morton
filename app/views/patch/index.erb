@@ -1,37 +1,3 @@
-<style>
- html { font-family: 'Open Sans', sans-serif; }
- .file {
-  padding:20px;
- }
- .patch {
-  margin: 10px 0px;
-  border:1px SOLID #CCC;
-  border-radius:5px;
-  overflow:scroll;
- }
-
- .violations {
-
- }
-
- table {
-  
-  width:100%;
-  border-radius: 10px;
- }
-
- thead {
-  border-bottom:2px SOLID #000;
- }
-
- td { padding:3px 6px; border-bottom: 1px SOLID #CCC; }
-
- pre {  line-height:1.1em; font-family: 'Source Code Pro' !important ;font-size: 0.8em !important; }
-
- pre:before { content: attr(data-content); display: inline-block;text-align:left;padding:3px;min-width:30px;background-color:#FFFFFF;border-right: 1px SOLID #CCC; text-align:right;   }
-}
-</style>
-
 <%- @response.each do |file| %>
   <div class=file>
     <%= file.filename %>
@@ -59,8 +25,10 @@
                 <td><%= $4 %></td>
                 <td><%= $3 %></td>
               </tr>
-        <%end %>
-      <% end %>
+            <%end %>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 <% end %>
