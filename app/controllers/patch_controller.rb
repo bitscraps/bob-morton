@@ -1,4 +1,5 @@
 class PatchController < ApplicationController
+  before_action :authenticate_user!
   def index
     client = Octokit::Client.new(:login => ENV['GITHUB_USERNAME'], :password => ENV['GITHUB_PASSWORD'])
 

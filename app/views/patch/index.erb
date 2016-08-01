@@ -1,17 +1,34 @@
 <style>
- html { font-family: 'San Francisco' }
+ html { font-family: 'Open Sans', sans-serif; }
  .file {
   padding:20px;
  }
  .patch {
   margin: 10px 0px;
+  border:1px SOLID #CCC;
+  border-radius:5px;
+  overflow:scroll;
  }
 
  .violations {
 
  }
 
- pre:before { content: attr(data-content); display: inline-block;text-align:left;padding:3px;border-right: 1px SOLID #CCC;  }
+ table {
+  
+  width:100%;
+  border-radius: 10px;
+ }
+
+ thead {
+  border-bottom:2px SOLID #000;
+ }
+
+ td { padding:3px 6px; border-bottom: 1px SOLID #CCC; }
+
+ pre {  line-height:1.1em; font-family: 'Source Code Pro' !important ;font-size: 0.8em !important; }
+
+ pre:before { content: attr(data-content); display: inline-block;text-align:left;padding:3px;min-width:30px;background-color:#FFFFFF;border-right: 1px SOLID #CCC; text-align:right;   }
 }
 </style>
 
@@ -25,10 +42,23 @@
     </div>
     <div class="violations">
       <% @line_changes = "(#{GitDiffParser::Patch.new(file.patch).changed_lines.map{|cl| cl.number}.join("|")})" %>
-      <% @warnings.each do |warning| %>
+      <table>
+        <thead>
+          <tr>
+            <td>Line</td>
+            <td>Warning</td>
+            <td>Type</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @warnings.each do |warning| %>
         
-        <% if warning =~ /#{file.filename}:#{@line_changes}:/  %>
-        <%= warning %>
+            <% if warning =~ /#{file.filename}:#{@line_changes}:(.*?) ([C|W]): (.*)/  %>
+              <tr>
+                <td><%= $1 %></td>
+                <td><%= $4 %></td>
+                <td><%= $3 %></td>
+              </tr>
         <%end %>
       <% end %>
     </div>

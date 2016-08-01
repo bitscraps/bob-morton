@@ -1,0 +1,35 @@
+.new_user {
+  width:200px;
+  text-align:center;
+  margin:auto;
+  font-size:1.2em;
+  border-radius:10px;
+  border:1px SOLID #CCC;
+  margin-bottom:20px;
+  margin-top:20px;
+  padding-bottom:10px;
+
+  .field {
+    margin:10px;
+  }
+
+  input[type=submit] {
+    background-color:#000;
+    border-radius: 10px;
+    border:0px;
+    color:#FFF;
+    padding:10px;
+  }
+}
+
+h2 {
+  margin:auto;
+  text-align:center;
+}
+
+a[href='/users/password/new'] {
+  margin:auto;
+  text-align:center;
+  display:block;
+}
+
