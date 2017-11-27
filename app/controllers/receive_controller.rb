@@ -5,8 +5,8 @@ class ReceiveController < ApplicationController
     payload = JSON.parse(params[:payload])
     
     if payload['action'] == 'opened' || payload['action'] == 'synchronize'
-      RubocopWorker.perform_async(payload)
-      BrakemanWorker.perform_async(payload)
+      RubocopWorker.perform_async(params[:payload])
+      BrakemanWorker.perform_async(params[:payload])
       job = 'opened'
     end
 
