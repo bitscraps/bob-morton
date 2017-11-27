@@ -2,11 +2,11 @@ class StatusCheck
   attr_accessor :github_client, :full_name, :repo_name, :base_sha, :merge_sha, :number
 
   def initialize(payload)
-    full_name = payload['pull_request']['base']['repo']['full_name']
-    repo_name = payload['pull_request']['base']['repo']['name']
-    base_sha = payload['pull_request']['base']['sha']
-    merge_sha = payload['pull_request']['head']['sha']
-    number = payload['pull_request']['number']
+    @full_name = payload['pull_request']['base']['repo']['full_name']
+    @repo_name = payload['pull_request']['base']['repo']['name']
+    @base_sha = payload['pull_request']['base']['sha']
+    @merge_sha = payload['pull_request']['head']['sha']
+    @number = payload['pull_request']['number']
   end
 
   def check
@@ -27,7 +27,7 @@ class StatusCheck
 
     if initial_warnings.to_i < current_warnings.to_i
       failed_status(description: "#{new_offenses} vulnerabilities have been added. (#{current_warnings} total vulnerabilities)",
-                    target_url: "http://bob-morton.grahamhadgraft.co.uk:3000/patch/#{full_name}/#{number}")
+                    target_url: "http://bob-morton.herokuapp.co.uk/patch/#{full_name}/#{number}")
     else
       successful_status(description: "#{reduced_offenses} vulnerabilities have been removed. (#{current_warnings} total vulnerabilities)")
     end
