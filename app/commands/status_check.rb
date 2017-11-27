@@ -1,5 +1,5 @@
 class StatusCheck
-  attr_accessor :github_client, :full_name, :repo_name, :base_sha, :merge_sha, :number
+  attr_accessor :github_client, :full_name, :repo_name, :base_sha, :merge_sha, :number, :payload
 
   def initialize(payload)
     @full_name = payload['pull_request']['base']['repo']['full_name']
@@ -7,6 +7,7 @@ class StatusCheck
     @base_sha = payload['pull_request']['base']['sha']
     @merge_sha = payload['pull_request']['head']['sha']
     @number = payload['pull_request']['number']
+    @payload = payload['repository']['git_url']
   end
 
   def check
