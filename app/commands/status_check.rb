@@ -31,10 +31,10 @@ class StatusCheck
                number: number)
 
     if initial_warnings.to_i < current_warnings.to_i
-      failed_status("#{new_offenses} vulnerabilities have been added. (#{current_warnings} total vulnerabilities)",
+      failed_status("#{new_offenses} offenses have been added. (#{current_warnings} total vulnerabilities)",
                     "http://bob-morton.herokuapp.co.uk/patch/#{full_name}/#{number}")
     else
-      successful_status("#{reduced_offenses} vulnerabilities have been removed. (#{current_warnings} total vulnerabilities)")
+      successful_status("#{reduced_offenses} offenses have been removed. (#{current_warnings} total vulnerabilities)")
     end
   end
 

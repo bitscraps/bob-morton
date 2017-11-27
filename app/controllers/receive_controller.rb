@@ -6,7 +6,7 @@ class ReceiveController < ApplicationController
 
     if payload['action'] == 'opened' || payload['action'] == 'synchronize'
       RubocopWorker.perform_async(payload)
-      BrakemanWorker.perform_async(payload)
+      # BrakemanWorker.perform_async(payload)
       job = 'opened'
     end
 
