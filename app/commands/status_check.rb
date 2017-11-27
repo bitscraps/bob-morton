@@ -16,13 +16,13 @@ class StatusCheck
 
     puts "cd #{repo_path} && git checkout #{base_sha} && #{check_command}"
     initial_warnings_output = `cd #{repo_path} && git checkout #{base_sha} && #{check_command}`
-    puts initial_warnings_output
     puts "cd #{repo_path} && git checkout #{merge_sha} && #{check_command}"
     current_warnings_output = `cd #{repo_path} && git checkout #{merge_sha} && #{check_command}`
-    puts current_warnings_output
 
     initial_warnings = parse_output_for_info(initial_warnings_output)
     current_warnings = parse_output_for_info(current_warnings_output)
+
+    puts "got output"
 
     store_data(sha: merge_sha,
                merge_branch_rubocop_warnings: initial_warnings,
@@ -30,10 +30,15 @@ class StatusCheck
                rubocop_output: current_warnings_output,
                number: number)
 
+    puts initial_warnings
+    puts current_warnings
+
     if initial_warnings.to_i < current_warnings.to_i
+      puts 'failed'
       failed_status("#{new_offenses} offenses have been added. (#{current_warnings} total vulnerabilities)",
                     "http://bob-morton.herokuapp.co.uk/patch/#{full_name}/#{number}")
     else
+      puts 'succeeded'
       successful_status("#{reduced_offenses} offenses have been removed. (#{current_warnings} total vulnerabilities)")
     end
   end
