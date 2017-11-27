@@ -11,7 +11,7 @@ class StatusCheck
   end
 
   def check
-    create_status(description: 'Checking Security Vulnerabilities...')
+    create_status('Checking Security Vulnerabilities...')
     repo_path = setup_repo
 
     puts "cd #{repo_path} && git checkout #{base_sha} && #{check_command}"
@@ -20,7 +20,6 @@ class StatusCheck
     puts "cd #{repo_path} && git checkout #{merge_sha} && #{check_command}"
     current_warnings_output = `cd #{repo_path} && git checkout #{merge_sha} && #{check_command}`
     puts current_warnings_output
-
 
     initial_warnings = parse_output_for_info(initial_warnings_output)
     current_warnings = parse_output_for_info(current_warnings_output)
@@ -32,10 +31,10 @@ class StatusCheck
                number: number)
 
     if initial_warnings.to_i < current_warnings.to_i
-      failed_status(description: "#{new_offenses} vulnerabilities have been added. (#{current_warnings} total vulnerabilities)",
-                    target_url: "http://bob-morton.herokuapp.co.uk/patch/#{full_name}/#{number}")
+      failed_status("#{new_offenses} vulnerabilities have been added. (#{current_warnings} total vulnerabilities)",
+                    "http://bob-morton.herokuapp.co.uk/patch/#{full_name}/#{number}")
     else
-      successful_status(description: "#{reduced_offenses} vulnerabilities have been removed. (#{current_warnings} total vulnerabilities)")
+      successful_status("#{reduced_offenses} vulnerabilities have been removed. (#{current_warnings} total vulnerabilities)")
     end
   end
 
@@ -49,11 +48,11 @@ class StatusCheck
     github_client.create_status(full_name, merge_sha, :pending, context: check_name, description: message)
   end
 
-  def failed_status(description:, url:)
+  def failed_status(description, url)
     client.create_status(full_name, merge_sha, :failure, context: check_name, description: description, target_url: url)
   end
 
-  def successful_status(description:)
+  def successful_status(description)
     client.create_status(full_name, merge_sha, :success, context: check_name, description: description)
   end
 
