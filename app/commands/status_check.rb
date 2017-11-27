@@ -14,8 +14,13 @@ class StatusCheck
     create_status(description: 'Checking Security Vulnerabilities...')
     repo_path = setup_repo
 
+    puts "cd #{repo_path} && git checkout #{base_sha} && #{check_command}"
     initial_warnings_output = `cd #{repo_path} && git checkout #{base_sha} && #{check_command}`
+    puts initial_warnings_output
+    puts "cd #{repo_path} && git checkout #{merge_sha} && #{check_command}"
     current_warnings_output = `cd #{repo_path} && git checkout #{merge_sha} && #{check_command}`
+    puts current_warnings_output
+
 
     initial_warnings = parse_output_for_info(initial_warnings_output)
     current_warnings = parse_output_for_info(current_warnings_output)
