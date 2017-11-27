@@ -9,9 +9,9 @@ class BrakemanCheck < StatusCheck
     'bundle exec brakeman -f'
   end
 
-  def parse_output_for_info(output)
-    puts output
-    json_output = JSON.parse(output)
+  def parse_output_for_info(command_output)
+    puts command_output
+    json_output = JSON.parse(command_output)
     json_output['scan_info']['security_warnings']
   end
 
