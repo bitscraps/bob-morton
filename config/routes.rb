@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   get 'patch/:user/:repo/:pr_number', controller: :patch, action: :index
 
   root to: "home#index"
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/sidekiq'
 end
