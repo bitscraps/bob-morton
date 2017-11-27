@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'sidekiq'
+gem 'sinatra', require: false
 gem 'rubocop'
 gem 'rubocop-rspec'
 gem "octokit", "~> 4.0"
