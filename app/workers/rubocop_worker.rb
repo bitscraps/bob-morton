@@ -1,4 +1,4 @@
-class OpenedRubocopWorker
+class RubocopWorker
   include Sidekiq::Worker
 
   def perform(payload)
