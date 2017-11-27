@@ -65,7 +65,7 @@ class StatusCheck
 
     `cd /tmp/#{repo_name}_brakeman && git pull`
 
-    '/tmp/#{repo_name}_#{check_name}"'
+    '/tmp/#{repo_name}_#{check_name}'
   end
 
   def store_data(options)
