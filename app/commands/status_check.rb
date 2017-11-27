@@ -1,5 +1,5 @@
 class StatusCheck
-  attr_accessor :github_client, :full_name, :repo_name, :base_sha, :merge_sha, :number, :payload
+  attr_accessor :github_client, :full_name, :repo_name, :base_sha, :merge_sha, :number, :git_url
 
   def initialize(payload)
     @full_name = payload['pull_request']['base']['repo']['full_name']
@@ -7,7 +7,7 @@ class StatusCheck
     @base_sha = payload['pull_request']['base']['sha']
     @merge_sha = payload['pull_request']['head']['sha']
     @number = payload['pull_request']['number']
-    @payload = payload['repository']['git_url']
+    @gir_url = payload['repository']['git_url']
   end
 
   def check
@@ -54,7 +54,7 @@ class StatusCheck
 
   def setup_repo
     unless File.directory? "/tmp/#{repo_name}_#{check_name}"
-      `git clone #{payload["repository"]["git_url"]} /tmp/#{repo_name}#{check_name}`
+      `git clone #{git_url} /tmp/#{repo_name}_#{check_name}`
     end
 
     `cd /tmp/#{repo_name}_brakeman && git pull`
