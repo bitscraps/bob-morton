@@ -1,15 +1,13 @@
 class StatusCheck
-  attr_accessor :github_client, :full_name, :repo_name, :base_sha, :merge_sha, :number, :git_url
+  attr_accessor :github_client, :full_name, :repo_name, :base_sha, :merge_sha, :number, :git_url, :payload
 
   def initialize(payload)
-    JSON.parse(payload)
-    
     @full_name = payload['pull_request']['base']['repo']['full_name']
     @repo_name = payload['pull_request']['base']['repo']['name']
     @base_sha = payload['pull_request']['base']['sha']
     @merge_sha = payload['pull_request']['head']['sha']
     @number = payload['pull_request']['number']
-    @git_url = payload['repository']['git_url']
+    @payload = payload
   end
 
   def check
@@ -55,8 +53,9 @@ class StatusCheck
   end
 
   def setup_repo
+    puts git_url
     unless File.directory? "/tmp/#{repo_name}_#{check_name}"
-      `git clone #{git_url} /tmp/#{repo_name}_#{check_name}`
+      `git clone https://#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}`
     end
 
     `cd /tmp/#{repo_name}_brakeman && git pull`
