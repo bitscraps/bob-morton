@@ -11,7 +11,7 @@ class StatusCheck
   end
 
   def check
-    create_status('Checking Security Vulnerabilities...')
+    create_status('Checking for offenses...')
     repo_path = setup_repo
 
     puts "cd #{repo_path} && git checkout #{base_sha} && #{check_command}"
@@ -19,16 +19,23 @@ class StatusCheck
     puts "cd #{repo_path} && git checkout #{merge_sha} && #{check_command}"
     current_warnings_output = `cd #{repo_path} && git checkout #{merge_sha} && #{check_command}`
 
+    puts 'outputs received'
+
     initial_warnings = parse_output_for_info(initial_warnings_output)
+
+    puts 'parsed initial output'
     current_warnings = parse_output_for_info(current_warnings_output)
+    puts 'parsed final output'
 
-    puts "got output"
+    puts 'storing data'
 
-    store_data(sha: merge_sha,
-               merge_branch_rubocop_warnings: initial_warnings,
-               this_branch_rubocop_warnings: current_warnings,
-               rubocop_output: current_warnings_output,
-               number: number)
+    store_data({ sha: merge_sha,
+                 merge_branch_rubocop_warnings: initial_warnings,
+                 this_branch_rubocop_warnings: current_warnings,
+                 rubocop_output: current_warnings_output,
+                 number: number} )
+
+    puts 'stored data'
 
     puts initial_warnings
     puts current_warnings
