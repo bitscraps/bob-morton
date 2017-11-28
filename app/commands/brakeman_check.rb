@@ -6,7 +6,7 @@ class BrakemanCheck < StatusCheck
   end
 
   def check_command
-    'brakeman -f'
+    'brakeman -f json'
   end
 
   def parse_output_for_info(command_output)

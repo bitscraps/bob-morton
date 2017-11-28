@@ -45,6 +45,7 @@ GEM
     arel (7.0.0)
     ast (2.2.0)
     bcrypt (3.1.11)
+    brakeman (4.0.1)
     builder (3.2.2)
     byebug (9.0.5)
     celluloid (0.17.2)
@@ -239,6 +240,7 @@ PLATFORMS
 
 DEPENDENCIES
   appsignal
+  brakeman
   byebug
   coffee-rails (~> 4.2)
   devise
