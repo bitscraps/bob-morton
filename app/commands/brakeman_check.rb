@@ -10,6 +10,7 @@ class BrakemanCheck < StatusCheck
   end
 
   def parse_output_for_info(command_output)
+    puts 'parsing_output'
     puts command_output
     json_output = JSON.parse(command_output)
     json_output['scan_info']['security_warnings']
