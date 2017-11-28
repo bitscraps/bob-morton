@@ -42,11 +42,13 @@ class StatusCheck
 
     if initial_warnings.to_i < current_warnings.to_i
       puts 'failed'
-      failed_status("#{new_offenses} offenses have been added. (#{current_warnings} total vulnerabilities)",
+      new_offenses = current_warnings.to_i - initial_warnings.to_i
+      failed_status("#{new_offenses} offenses have been added. (#{current_warnings} total offenses)",
                     "http://bob-morton.herokuapp.co.uk/patch/#{full_name}/#{number}")
     else
       puts 'succeeded'
-      successful_status("#{reduced_offenses} offenses have been removed. (#{current_warnings} total vulnerabilities)")
+      reduced_offenses = initial_warnings.to_i - current_warnings.to_i
+      successful_status("#{reduced_offenses} offenses have been removed. (#{current_warnings} total offenses)")
     end
   end
 
