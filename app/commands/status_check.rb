@@ -63,11 +63,11 @@ class StatusCheck
   end
 
   def failed_status(description, url)
-    client.create_status(full_name, merge_sha, :failure, context: check_name, description: description, target_url: url)
+    github_client.create_status(full_name, merge_sha, :failure, context: check_name, description: description, target_url: url)
   end
 
   def successful_status(description)
-    client.create_status(full_name, merge_sha, :success, context: check_name, description: description)
+    github_client.create_status(full_name, merge_sha, :success, context: check_name, description: description)
   end
 
   def setup_repo
