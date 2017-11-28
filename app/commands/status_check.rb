@@ -50,6 +50,8 @@ class StatusCheck
       reduced_offenses = initial_warnings.to_i - current_warnings.to_i
       successful_status("#{reduced_offenses} offenses have been removed. (#{current_warnings} total offenses)")
     end
+
+    FileUtils.rm_rf(repo_path)
   end
 
   private
