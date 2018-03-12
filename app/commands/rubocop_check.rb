@@ -10,7 +10,6 @@ class RubocopCheck < StatusCheck
   end
 
   def parse_output_for_info(command_output)
-    puts command_output
     /, (.*?) offenses detected/.match(command_output.split("\n").last)[1]
   end
 

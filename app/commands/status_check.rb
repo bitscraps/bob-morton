@@ -37,14 +37,14 @@ class StatusCheck
 
     puts 'stored data'
 
-    puts initial_warnings
-    puts current_warnings
+    # puts initial_warnings
+    # puts current_warnings
 
     if initial_warnings.to_i < current_warnings.to_i
       puts 'failed'
       new_offenses = current_warnings.to_i - initial_warnings.to_i
       failed_status("#{new_offenses} offenses have been added. (#{current_warnings} total offenses)",
-                    "http://bob-morton.herokuapp.co.uk/patch/#{full_name}/#{number}")
+                    "http://bob-morton.grahamhadgraft.co.uk/patch/#{full_name}/#{number}")
     else
       puts 'succeeded'
       reduced_offenses = initial_warnings.to_i - current_warnings.to_i
@@ -78,7 +78,7 @@ class StatusCheck
       `git clone https://#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}`
     end
 
-    `cd /tmp/#{repo_name}_brakeman && git pull`
+    `cd /tmp/#{repo_name}_#{check_name} && git pull`
 
     "/tmp/#{repo_name}_#{check_name}"
   end
