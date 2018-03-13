@@ -5,6 +5,6 @@ class PatchController < ApplicationController
 
     @response = client.pull_files("#{params[:user]}/#{params[:repo]}", params[:pr_number])
 
-    @warnings = Commit.last.rubocop_output.split("\n")
+    @warnings = Commit.where(number: params[:pr_number]).last.rubocop_output.split("\n")
   end
 end
