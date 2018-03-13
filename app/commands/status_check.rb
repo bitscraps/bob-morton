@@ -52,6 +52,8 @@ class StatusCheck
     end
 
     FileUtils.rm_rf(repo_path)
+  rescue
+    FileUtils.rm_rf(repo_path)
   end
 
   private
@@ -74,13 +76,13 @@ class StatusCheck
 
   def setup_repo
     puts git_url
-    unless File.directory? "/tmp/#{repo_name}_#{check_name}"
-      `git clone https://#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}`
+    unless File.directory? "/tmp/#{repo_name}_#{check_name}_#{number}"
+      `git clone https://#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}_#{number}`
     end
 
-    `cd /tmp/#{repo_name}_#{check_name} && git pull`
+    `cd /tmp/#{repo_name}_#{check_name}_#{number} && git pull`
 
-    "/tmp/#{repo_name}_#{check_name}"
+    "/tmp/#{repo_name}_#{check_name}_#{number}"
   end
 
   def store_data(options)
