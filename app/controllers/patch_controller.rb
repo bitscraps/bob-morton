@@ -6,6 +6,6 @@ class PatchController < ApplicationController
     @response = client.pull_files("#{params[:user]}/#{params[:repo]}", params[:pr_number])
 
     @rubocop_warnings = Commit.where(number: params[:pr_number]).last.rubocop_output.split("\n")
-    @brakeman_warnings = JSON.parse(Commit.where(number: params[:pr_number]).last.brakeman_output
+    @brakeman_warnings = JSON.parse(Commit.where(number: params[:pr_number]).last.brakeman_output)
   end
 end
