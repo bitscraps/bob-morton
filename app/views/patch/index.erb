@@ -31,8 +31,7 @@
           <% end %>
           <% if @brakeman_warnings %>
             <% @brakeman_warnings['warnings'].each do |warning| %>
-        
-              <% if warning =~ /#{file.filename}:#{@line_changes}:(.*?) ([C|W]): (.*)/  %>
+              <% if warning['line'] =~ /#{@line_changes}/ && warning['file'] == file.filename  %>
                 <tr>
                   <td>Brakeman</td>
                   <td><%= warning['line'] %></td>
