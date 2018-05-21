@@ -14,11 +14,10 @@ class RubocopCheck < StatusCheck
   end
 
   def store_data(options)
-    commits = Commit.new(sha: options[:sha],
-                         merge_branch_rubocop_warnings: options[:merge_branch_rubocop_warnings],
-                         this_branch_rubocop_warnings: options[:this_branch_rubocop_warnings],
-                         rubocop_output: options[:rubocop_output],
-                         number: options[:number])
-    commits.save!
+    commit = Commit.find_or_create_by(sha: options[:sha], number: options[:number])
+    commit.merge_branch_rubocop_warnings = options[:merge_branch_rubocop_warnings]
+    commit.this_branch_rubocop_warnings = options[:this_branch_rubocop_warnings]
+    commit.rubocop_output = options[:rubocop_output]
+    commit.save!
   end
 end

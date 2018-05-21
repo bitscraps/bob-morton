@@ -17,5 +17,10 @@ class BrakemanCheck < StatusCheck
   end
 
   def store_data(options)
+    commit = Commit.find_or_create_by(sha: options[:sha], number: options[:number])
+    commit.merge_branch_brakeman_warnings = options[:merge_branch_brakeman_warnings]
+    commit.this_branch_brakeman_warnings = options[:this_branch_brakeman_warnings]
+    commit.brakeman_output = options[:brakeman_output]
+    commit.save!
   end
 end

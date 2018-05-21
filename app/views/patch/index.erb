@@ -11,19 +11,32 @@
       <table>
         <thead>
           <tr>
+            <td>Source</td>
             <td>Line</td>
             <td>Warning</td>
             <td>Type</td>
           </tr>
         </thead>
         <tbody>
-          <% @warnings.each do |warning| %>
+          <% @rubocop_warnings.each do |warning| %>
         
             <% if warning =~ /#{file.filename}:#{@line_changes}:(.*?) ([C|W]): (.*)/  %>
               <tr>
+                <td>Rubocop</td>
                 <td><%= $1 %></td>
                 <td><%= $4 %></td>
                 <td><%= $3 %></td>
+              </tr>
+            <%end %>
+          <% end %>
+          <% @brakeman_warnings['warnings'].each do |warning| %>
+        
+            <% if warning =~ /#{file.filename}:#{@line_changes}:(.*?) ([C|W]): (.*)/  %>
+              <tr>
+                <td>Brakeman</td>
+                <td><%= warning['line'] %></td>
+                <td><%= warning['message'] %></td>
+                <td><%= link_to warning['warning_type'], warning['link'] %></td>
               </tr>
             <%end %>
           <% end %>
