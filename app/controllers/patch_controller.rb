@@ -7,7 +7,7 @@ class PatchController < ApplicationController
 
     @rubocop_warnings = Commit.where(number: params[:pr_number]).last.rubocop_output.split("\n")
     brakeman_warnings = Commit.where(number: params[:pr_number]).last
-    if brakeman_warnings
+    if brakeman_warnings.present?
       @brakeman_warnings = JSON.parse(brakeman_warnings.brakeman_output)
     end
   end
