@@ -29,16 +29,18 @@
               </tr>
             <%end %>
           <% end %>
-          <% @brakeman_warnings['warnings'].each do |warning| %>
+          <% if @brakeman_warnings %>
+            <% @brakeman_warnings['warnings'].each do |warning| %>
         
-            <% if warning =~ /#{file.filename}:#{@line_changes}:(.*?) ([C|W]): (.*)/  %>
-              <tr>
-                <td>Brakeman</td>
-                <td><%= warning['line'] %></td>
-                <td><%= warning['message'] %></td>
-                <td><%= link_to warning['warning_type'], warning['link'] %></td>
-              </tr>
-            <%end %>
+              <% if warning =~ /#{file.filename}:#{@line_changes}:(.*?) ([C|W]): (.*)/  %>
+                <tr>
+                  <td>Brakeman</td>
+                  <td><%= warning['line'] %></td>
+                  <td><%= warning['message'] %></td>
+                  <td><%= link_to warning['warning_type'], warning['link'] %></td>
+                </tr>
+              <% end %>
+            <% end %>
           <% end %>
         </tbody>
       </table>
