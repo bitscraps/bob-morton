@@ -6,7 +6,7 @@ class BrakemanCheck < StatusCheck
   end
 
   def check_command
-    'brakeman -f json'
+    'pronto run --runner=rubocop formatters=json'
   end
 
   def parse_output_for_info(command_output)
