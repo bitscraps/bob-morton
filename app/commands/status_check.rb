@@ -15,15 +15,7 @@ class StatusCheck
     repo_path = setup_repo
 
     puts "cd #{repo_path} && git checkout #{base_sha} && #{check_command}"
-    initial_warnings_output = `cd #{repo_path} && git checkout #{base_sha} && #{check_command}`
-    puts "cd #{repo_path} && git checkout #{merge_sha} && #{check_command}"
-    current_warnings_output = `cd #{repo_path} && git checkout #{merge_sha} && #{check_command}`
 
-    puts 'outputs received'
-
-    initial_warnings = parse_output_for_info(initial_warnings_output)
-
-    puts 'parsed initial output'
     current_warnings = parse_output_for_info(current_warnings_output)
     puts 'parsed final output'
 
@@ -33,22 +25,18 @@ class StatusCheck
                  merge_branch_rubocop_warnings: initial_warnings,
                  this_branch_rubocop_warnings: current_warnings,
                  rubocop_output: current_warnings_output,
-                 number: number} )
+                 number: numberm} )
 
     puts 'stored data'
 
-    # puts initial_warnings
-    # puts current_warnings
-
-    if initial_warnings.to_i < current_warnings.to_i
+    if current_warnings.to_i > 0
       puts 'failed'
-      new_offenses = current_warnings.to_i - initial_warnings.to_i
-      failed_status("#{new_offenses} offenses have been added. (#{current_warnings} total offenses)",
+      new_offenses = current_warnings.to_i
+      failed_status("#{new_offenses} offenses have been added.",
                     "http://bob-morton.grahamhadgraft.co.uk:3000/patch/#{full_name}/#{number}")
     else
       puts 'succeeded'
-      reduced_offenses = initial_warnings.to_i - current_warnings.to_i
-      successful_status("#{reduced_offenses} offenses have been removed. (#{current_warnings} total offenses)")
+      successful_status('No new offenses added')
     end
 
     FileUtils.rm_rf(repo_path)

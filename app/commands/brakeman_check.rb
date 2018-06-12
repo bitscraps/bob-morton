@@ -13,7 +13,7 @@ class BrakemanCheck < StatusCheck
     puts 'parsing_output'
     puts command_output
     json_output = JSON.parse(command_output)
-    json_output['scan_info']['security_warnings']
+    json_output.length
   end
 
   def store_data(options)
@@ -22,5 +22,13 @@ class BrakemanCheck < StatusCheck
     commit.this_branch_brakeman_warnings = options[:this_branch_rubocop_warnings]
     commit.brakeman_output = options[:rubocop_output]
     commit.save!
+
+    JSON.parse(commit.rubocop_output).each do |warning|
+      commit << Warning.create(source: 'brakeman', 
+                               filename: warning['path'], 
+                               line_number: warning['line'], 
+                               description: warning['message'], 
+                               log_level: warning['level'])
+    end
   end
 end
