@@ -44,9 +44,17 @@ gem 'byebug'
 gem 'git_diff_parser'
 gem 'devise'
 
+gem 'pronto'
+gem 'pronto-rubocop'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'vcr'
+  gem 'factory_bot'
+  gem 'webmock'
 end
 
 group :development do

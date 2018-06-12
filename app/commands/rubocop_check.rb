@@ -6,7 +6,7 @@ class RubocopCheck < StatusCheck
   end
 
   def check_command
-    'rubocop'
+    'pronto run --runner=rubocop' #Lets add a really long comment to this line that goes on and on and on and on and on and on
   end
 
   def parse_output_for_info(command_output)

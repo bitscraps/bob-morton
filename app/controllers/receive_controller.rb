@@ -1,5 +1,5 @@
 class ReceiveController < ApplicationController
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def receive
     payload = JSON.parse(params[:payload])
@@ -10,6 +10,6 @@ class ReceiveController < ApplicationController
       job = 'opened'
     end
 
-    render text: "Job #{job} kicked off"
+    render plain: "Job #{job} kicked off"
   end
 end
