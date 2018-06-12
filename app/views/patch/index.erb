@@ -7,7 +7,7 @@
       <% end %>
     </div>
     <div class="violations">
-      <% @line_changes = "(#{GitDiffParser::Patch.new(file.patch).changed_lines.map{|cl| cl.number}.join("|")})" %>
+      <% @line_changes = "(#{GitDiffParser::Patch.new(file.patch).changed_lines.map{|cl| cl.number}})" %>
       <table>
         <thead>
           <tr>
@@ -18,28 +18,13 @@
           </tr>
         </thead>
         <tbody>
-          <% @rubocop_warnings.each do |warning| %>
-        
-            <% if warning =~ /#{file.filename}:#{@line_changes}:(.*?) ([C|W]): (.*)/  %>
-              <tr>
-                <td>Rubocop</td>
-                <td><%= $1 %></td>
-                <td><%= $4 %></td>
-                <td><%= $3 %></td>
-              </tr>
-            <%end %>
-          <% end %>
-          <% if @brakeman_warnings %>
-            <% @brakeman_warnings['warnings'].each do |warning| %>
-              <% if warning['line'].to_s.match(/#{@line_changes}/) && warning['file'] == file.filename  %>
-                <tr>
-                  <td>Brakeman</td>
-                  <td><%= warning['line'] %></td>
-                  <td><%= warning['message'] %></td>
-                  <td><%= link_to warning['warning_type'], warning['link'] %></td>
-                </tr>
-              <% end %>
-            <% end %>
+          <% @last_commit.warnings.each do |warning| %>
+            <tr>
+              <td><%= warning.source %></td>
+              <td><%= warning.line_number %></td>
+              <td><%= warning.description %></td>
+              <td><%= warning.log_level %></td>
+            </tr>
           <% end %>
         </tbody>
       </table>
