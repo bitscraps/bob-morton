@@ -15,6 +15,7 @@ class StatusCheck
     repo_path = setup_repo
 
     puts "cd #{repo_path} && git checkout #{base_sha} && #{check_command}"
+    current_warnings_output = "cd #{repo_path} && git checkout #{base_sha} && #{check_command}"
 
     current_warnings = parse_output_for_info(current_warnings_output)
     puts 'parsed final output'

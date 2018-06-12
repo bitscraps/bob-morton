@@ -1,6 +1,6 @@
 class AddTableWarnings < ActiveRecord::Migration[5.0]
   def change
-    create_table :warningss do |t|
+    create_table :warnings do |t|
       t.string :source
       t.text :filename
       t.integer :line_number
