@@ -6,7 +6,7 @@ class BrakemanCheck < StatusCheck
   end
 
   def check_command
-    'pronto run --runner=rubocop formatters=json'
+    'pronto run --runner=brakeman --formatters=json --commit=develop'
   end
 
   def parse_output_for_info(command_output)
@@ -24,10 +24,10 @@ class BrakemanCheck < StatusCheck
     commit.save!
 
     JSON.parse(commit.rubocop_output).each do |warning|
-      commit << Warning.create(source: 'brakeman', 
-                               filename: warning['path'], 
-                               line_number: warning['line'], 
-                               description: warning['message'], 
+      commit << Warning.create(source: 'brakeman',
+                               filename: warning['path'],
+                               line_number: warning['line'],
+                               description: warning['message'],
                                log_level: warning['level'])
     end
   end
