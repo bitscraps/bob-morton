@@ -22,7 +22,7 @@ class RubocopCheck < StatusCheck
     commit.save!
 
     JSON.parse(commit.rubocop_output).each do |warning|
-      commit << Warning.create(source: 'rubocop',
+      commit.warnings << Warning.new(source: 'rubocop',
                                filename: warning['path'],
                                line_number: warning['line'],
                                description: warning['message'],

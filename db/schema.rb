@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20180612190328) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "warningss", force: :cascade do |t|
+  create_table "warnings", force: :cascade do |t|
     t.string   "source"
     t.text     "filename"
     t.integer  "line_number"
