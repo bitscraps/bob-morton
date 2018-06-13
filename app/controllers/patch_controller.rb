@@ -3,6 +3,7 @@ class PatchController < ApplicationController
 
   def index
     @response = github_files
+    @sources = params.key?(:source) ? params[:source] : ['rubocop', 'brakeman']
 
     @rubocop_warnings = last_commit.rubocop_output.split("\n")
 

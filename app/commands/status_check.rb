@@ -68,7 +68,7 @@ class StatusCheck
   def setup_repo
     puts git_url
     unless File.directory? "/tmp/#{repo_name}_#{check_name}_#{number}"
-      `git clone https://#{ENV['GITHUB_USERNAME']}:#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}_#{number}`
+      `git clone --depth 1 https://#{ENV['GITHUB_USERNAME']}:#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}_#{number}`
     end
 
     `cd /tmp/#{repo_name}_#{check_name}_#{number} && git pull`

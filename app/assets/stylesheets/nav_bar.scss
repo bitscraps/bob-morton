@@ -1,7 +1,11 @@
-nav {
+nav.header {
   background-color:#000;
   padding:5px 10px;
   min-height: 55px;
+  z-index: 5;
+  position: fixed;
+  top:0;
+  width:100%;
 
   ul {
     list-style:none;

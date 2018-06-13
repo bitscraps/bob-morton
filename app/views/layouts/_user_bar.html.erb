@@ -1,5 +1,6 @@
-<nav>
+<nav class=header>
   <ul class="pull-right">
+    <li><%= link_to 'Settings', settings_path %></li>
     <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
   </ul>
 </nav>

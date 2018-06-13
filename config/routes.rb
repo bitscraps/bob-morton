@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   post 'receive', controller: :receive
 
-  get 'patch/:user/:repo/:pr_number', controller: :patch, action: :index
+  get 'patch/:user/:repo/:pr_number', controller: :patch, action: :index, as: 'patch'
+
+  resource :setting, only: :show do
+    resources :users
+  end
 
   root to: "home#index"
 

@@ -1,0 +1,24 @@
+.sidebar {
+  position: fixed;
+  padding:1%;
+  padding-top:80px;
+  top:0;
+  width:14%;
+  height:100%;
+  background-color: #ECECEC;
+  z-index: 1;
+
+  ul {
+    position: relative;
+    list-style: none;
+    padding:0;
+
+    li {
+    padding-left: 0;
+      width: 90%;
+      span {
+        float: right;
+      }
+    }
+  }
+}
