@@ -6,7 +6,7 @@ class RailsBestPracticesCheck < StatusCheck
   end
 
   def check_command
-    'pronto run --commit=develop --runner=rails_best_practices --formatters=json'
+    "pronto run --commit=develop --runner=rails_best_practices --commit=#{base_ref}"
   end
 
   def send_status_check?

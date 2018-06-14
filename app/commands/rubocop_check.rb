@@ -6,7 +6,7 @@ class RubocopCheck < StatusCheck
   end
 
   def check_command
-    'pronto run --runner=rubocop --formatters=json --commit=develop' #Lets add a really long comment to this line that goes on and on and on and on and on and on
+    "pronto run --runner=rubocop --formatters=json --commit=#{base_ref}"
   end
 
   def send_status_check?

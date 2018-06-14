@@ -5,6 +5,7 @@ class StatusCheck
     @full_name = payload['pull_request']['base']['repo']['full_name']
     @repo_name = payload['pull_request']['base']['repo']['name']
     @base_sha = payload['pull_request']['base']['sha']
+    @base_ref = payload['pull_request']['base']['ref']
     @merge_sha = payload['pull_request']['head']['sha']
     @merge_ref = payload['pull_request']['head']['ref']
     @number = payload['pull_request']['number']
@@ -15,14 +16,10 @@ class StatusCheck
     create_status('Checking for offenses...')
     repo_path = setup_repo
 
-    puts "cd #{repo_path} && git checkout #{merge_sha} && #{check_command}"
     current_warnings_output = `cd #{repo_path} && git checkout #{merge_sha} && #{check_command}`
     
 
     current_warnings = parse_output_for_info(current_warnings_output)
-    puts 'parsed final output'
-
-    puts 'storing data'
 
     store_data({ sha: merge_sha,
                  merge_branch_rubocop_warnings: 0,
@@ -78,7 +75,6 @@ class StatusCheck
   def setup_repo
     puts git_url
     unless File.directory? "/tmp/#{repo_name}_#{check_name}_#{number}"
-      puts "git clone https://@github.com/#{full_name}.git /tmp/#{repo_name}_#{check_name}_#{number}"
       `git clone https://#{ENV['GITHUB_USERNAME']}:#{ENV['GITHUB_PASSWORD']}@github.com/#{full_name}.git /tmp/#{repo_name}_#{check_name}_#{number}`
     end
 

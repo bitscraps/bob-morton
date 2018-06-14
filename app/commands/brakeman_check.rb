@@ -6,7 +6,7 @@ class BrakemanCheck < StatusCheck
   end
 
   def check_command
-    'pronto run --runner=brakeman --formatters=json --commit=develop'
+    "pronto run --runner=brakeman --formatters=json --commit=#{base_ref}"
   end
 
   def send_status_check?

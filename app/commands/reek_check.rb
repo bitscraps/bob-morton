@@ -6,7 +6,7 @@ class ReekCheck < StatusCheck
   end
 
   def check_command
-    'pronto run --commit=develop --runner=reek --formatters=json'
+    "pronto run --runner=reek --formatters=json --commit=#{base_ref}"
   end
 
   def send_status_check?
