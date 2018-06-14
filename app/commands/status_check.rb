@@ -42,9 +42,9 @@ class StatusCheck
       successful_status('No new offenses added')
     end
 
-    # FileUtils.rm_rf(repo_path)
+    FileUtils.rm_rf(repo_path)
   rescue
-    # FileUtils.rm_rf(repo_path)
+    FileUtils.rm_rf(repo_path)
   end
 
   private
