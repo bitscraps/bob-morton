@@ -19,11 +19,9 @@ class RubocopCheck < StatusCheck
   end
 
   def store_data(options)
-    puts "store data"
     commit = Commit.find_or_create_by(sha: options[:sha], number: options[:number])
 
     JSON.parse(options[:rubocop_output]).each do |warning|
-      puts "create warning"
       warning = Warning.create!(source: 'rubocop',
                       filename: warning['path'],
                       line_number: warning['line'],
