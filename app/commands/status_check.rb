@@ -42,33 +42,43 @@ class StatusCheck
       successful_status('No new offenses added')
     end
 
-    FileUtils.rm_rf(repo_path)
+    # FileUtils.rm_rf(repo_path)
   rescue
-    FileUtils.rm_rf(repo_path)
+    # FileUtils.rm_rf(repo_path)
   end
 
   private
+
+  def submit_status_check
+    false
+  end
 
   def github_client
     @client ||= Octokit::Client.new(login: ENV['GITHUB_USERNAME'], password: ENV['GITHUB_PASSWORD'])
   end
 
   def create_status(message)
+    return unless send_status_check?
+
     github_client.create_status(full_name, merge_sha, :pending, context: check_name, description: message)
   end
 
   def failed_status(description, url)
+    return unless send_status_check?
+
     github_client.create_status(full_name, merge_sha, :failure, context: check_name, description: description, target_url: url)
   end
 
   def successful_status(description)
+    return unless send_status_check?
+    
     github_client.create_status(full_name, merge_sha, :success, context: check_name, description: description)
   end
 
   def setup_repo
     puts git_url
     unless File.directory? "/tmp/#{repo_name}_#{check_name}_#{number}"
-      `git clone --depth 1 https://#{ENV['GITHUB_USERNAME']}:#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}_#{number}`
+      `git clone https://#{ENV['GITHUB_USERNAME']}:#{ENV['GITHUB_PASSWORD']}@github.com/sofarsounds/sofar-main.git /tmp/#{repo_name}_#{check_name}_#{number}`
     end
 
     `cd /tmp/#{repo_name}_#{check_name}_#{number} && git pull`

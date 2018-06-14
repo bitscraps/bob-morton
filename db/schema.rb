@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180612190328) do
+ActiveRecord::Schema.define(version: 20180613201733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "branches", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "commits", force: :cascade do |t|
     t.string   "sha"
@@ -26,6 +33,19 @@ ActiveRecord::Schema.define(version: 20180612190328) do
     t.integer  "merge_branch_brakeman_warnings"
     t.integer  "this_branch_brakeman_warnings"
     t.text     "brakeman_output"
+    t.integer  "branch_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "github_project_user"
+    t.string   "github_project_name"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "projects_users", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

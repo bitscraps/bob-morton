@@ -20,6 +20,17 @@
         <span><%= @last_commit.warnings.where(source: 'rubocop').count %></span>
       </li>
     </ul>
+    <h3>Quality</h3>
+    <ul>
+      <li>
+        <%= link_to 'Rails Best Practices', patch_path(source: 'rails_best_practices') %>
+        <span><%= @last_commit.warnings.where(source: 'rails_best_practices').count %></span>
+      </li>
+      <li>
+        <%= link_to 'Reek', patch_path(source: 'reek') %>
+        <span><%= @last_commit.warnings.where(source: 'reek').count %></span>
+      </li>
+    </ul>
   </nav>
 </div>
 <div class="page-content">

@@ -1,9 +1,20 @@
  html, body { 
   font-family: 'Open Sans', sans-serif; 
+  font-size: 1em;
   margin:0 ;
   padding:0; 
 }
 
 .content {
   padding: 20px;
+}
+
+.page-content {
+  margin-top:70px;
+  width:84%;
+  margin-left:16%;
+}
+
+.main {
+  margin-top:70px;
 }

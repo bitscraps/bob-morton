@@ -1,12 +1,12 @@
-class RailsBestPracticesCheck < StatusCheck
+class ReekCheck < StatusCheck
   private
 
   def check_name
-    'rails_best_practices'
+    'reek'
   end
 
   def check_command
-    'pronto run --commit=develop --runner=rails_best_practices --formatters=json'
+    'pronto run --commit=develop --runner=reek --formatters=json'
   end
 
   def send_status_check?
@@ -21,9 +21,8 @@ class RailsBestPracticesCheck < StatusCheck
   def store_data(options)
     commit = Commit.find_or_create_by(sha: options[:sha], number: options[:number])
     commit.save!
-
     JSON.parse(options[:rubocop_output]).each do |warning|
-      Warning.create!(source: 'rails_best_practices',
+      Warning.create!(source: 'reek',
                       filename: warning['path'],
                       line_number: warning['line'],
                       description: warning['message'],

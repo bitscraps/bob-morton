@@ -1,0 +1,22 @@
+<div class="main">
+  <% if @project.branches.count.zero? %>
+    <p>Great</p>
+    <p>All you need to do now is:</p>
+    <ol>
+      <li>Setup the webhook</li>
+      <li>Create your first pull request</li>
+    </ol>
+  <% else %>
+    <% @project.branches.each do |branch| %>
+      <div class="project">
+        <% if branch.commits.count.zero? %>
+          <%= branch.name %>
+        <% else %>
+          <%= link_to branch.name, patch_path(user: branch.project.github_project_user,
+                                              repo: branch.project.github_project_name,
+                                              pr_number: branch.commits.last.number) %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -9,6 +9,10 @@ class RubocopCheck < StatusCheck
     'pronto run --runner=rubocop --formatters=json --commit=develop' #Lets add a really long comment to this line that goes on and on and on and on and on and on
   end
 
+  def send_status_check?
+    true
+  end
+
   def parse_output_for_info(command_output)
     output = JSON.parse(command_output)
     output.length
@@ -16,17 +20,15 @@ class RubocopCheck < StatusCheck
 
   def store_data(options)
     commit = Commit.find_or_create_by(sha: options[:sha], number: options[:number])
-    commit.merge_branch_rubocop_warnings = options[:merge_branch_rubocop_warnings]
-    commit.this_branch_rubocop_warnings = options[:this_branch_rubocop_warnings]
-    commit.rubocop_output = options[:rubocop_output]
     commit.save!
 
-    JSON.parse(commit.rubocop_output).each do |warning|
-      commit.warnings << Warning.new(source: 'rubocop',
-                               filename: warning['path'],
-                               line_number: warning['line'],
-                               description: warning['message'],
-                               log_level: warning['level'])
+    JSON.parse(options[:rubocop_output]).each do |warning|
+      Warning.create!(source: 'rubocop',
+                      filename: warning['path'],
+                      line_number: warning['line'],
+                      description: warning['message'],
+                      log_level: warning['level'],
+                      commit_id: commit.id)
     end
   end
 end
