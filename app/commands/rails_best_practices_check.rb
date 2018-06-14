@@ -20,7 +20,6 @@ class RailsBestPracticesCheck < StatusCheck
 
   def store_data(options)
     commit = Commit.find_or_create_by(sha: options[:sha], number: options[:number])
-    commit.save!
 
     JSON.parse(options[:rubocop_output]).each do |warning|
       Warning.create!(source: 'rails_best_practices',
