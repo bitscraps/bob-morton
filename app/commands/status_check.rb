@@ -79,7 +79,6 @@ class StatusCheck
   def setup_repo
     puts git_url
     unless File.directory? "/tmp/#{repo_name}_#{check_name}_#{number}"
-      puts "git clone https://@github.com/#{full_name}.git /tmp/#{repo_name}_#{check_name}_#{number}"
       `git clone https://#{ENV['GITHUB_USERNAME']}:#{ENV['GITHUB_PASSWORD']}@github.com/#{full_name}.git /tmp/#{repo_name}_#{check_name}_#{number}`
     end
 
