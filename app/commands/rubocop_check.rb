@@ -22,13 +22,17 @@ class RubocopCheck < StatusCheck
     commit = Commit.find_or_create_by(sha: options[:sha], number: options[:number])
     commit.save!
 
+    puts commit.inspect
+
     JSON.parse(options[:rubocop_output]).each do |warning|
-      Warning.create!(source: 'rubocop',
+      puts "create warning"
+      warning = Warning.create!(source: 'rubocop',
                       filename: warning['path'],
                       line_number: warning['line'],
                       description: warning['message'],
                       log_level: warning['level'],
                       commit_id: commit.id)
+      puts warning.inspect
     end
   end
 end
