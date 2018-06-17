@@ -1,0 +1,7 @@
+<div class="main">
+  <%= form_for @project do |f| %>
+    Enter your github repo name:
+    <%= f.text_field :github_project_user %> /  <%= f.text_field :github_project_name %>
+    <%= f.submit 'Create' %>
+  <% end %>
+</div>

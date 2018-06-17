@@ -6,6 +6,7 @@ gem 'rails', '~> 5.0.0'
 gem 'appsignal'
 
 gem 'dotenv-rails'
+gem "font-awesome-rails"
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -47,6 +48,7 @@ gem 'pronto'
 gem 'pronto-rubocop'
 gem 'pronto-brakeman'
 gem 'pronto-rails_best_practices'
+gem 'pronto-reek'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

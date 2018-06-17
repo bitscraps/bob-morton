@@ -3,14 +3,9 @@ class PatchController < ApplicationController
 
   def index
     @response = github_files
-    @sources = params.key?(:source) ? params[:source] : ['rubocop', 'brakeman']
+    @sources = params.key?(:source) ? params[:source] : ['rubocop', 'brakeman', 'rails_best_practices', 'reek']
 
-    @rubocop_warnings = last_commit.rubocop_output.split("\n")
-
-    brakeman_warnings = last_commit
-    if brakeman_warnings.brakeman_output.present?
-      @brakeman_warnings = JSON.parse(brakeman_warnings.brakeman_output)
-    end
+    @last_commit = Commit.where(number: params[:pr_number]).last
   end
 
   def client

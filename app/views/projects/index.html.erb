@@ -1,0 +1,16 @@
+<div class="main">
+  <% if @projects.present? %>
+    <% @projects.each do |project| %>
+      <div class="project">
+        <%= link_to project_path(project) do %>
+          <%= project.name %>
+          <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <h2>NO PROJECT?</h2>
+    <p>Create your first project to get started</p>
+    <%= link_to 'Create my first project', new_project_path %>
+  <% end %>
+</div>
