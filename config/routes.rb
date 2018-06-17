@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :projects, only: [:index, :create, :new, :show]
 
-  root to: "home#index"
+  root to: "projects#index"
 
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq'
