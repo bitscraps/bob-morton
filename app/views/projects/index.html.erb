@@ -1,7 +1,12 @@
 <div class="main">
   <% if @projects.present? %>
     <% @projects.each do |project| %>
-      <%= link_to project.name, project_path(project) %>
+      <div class="project">
+        <%= link_to project_path(project) do %>
+          <%= project.name %>
+          <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
     <% end %>
   <% else %>
     <h2>NO PROJECT?</h2>

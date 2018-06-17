@@ -6,6 +6,7 @@ gem 'rails', '~> 5.0.0'
 gem 'appsignal'
 
 gem 'dotenv-rails'
+gem "font-awesome-rails"
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 # Use Puma as the app server

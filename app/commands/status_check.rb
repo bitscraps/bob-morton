@@ -37,7 +37,7 @@ class StatusCheck
       puts 'failed'
       new_offenses = current_warnings.to_i
       failed_status("#{new_offenses} offenses have been added.",
-                    "http://bob-morton.grahamhadgraft.co.uk:3000/patch/#{full_name}/#{number}")
+                    "http://bob-morton.herokuapp.com/patch/#{full_name}/#{number}")
     else
       puts 'succeeded'
       successful_status('No new offenses added')
