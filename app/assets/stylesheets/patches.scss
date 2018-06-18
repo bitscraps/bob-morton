@@ -43,7 +43,7 @@ pre.violations {
   font-size: 0.8em !important; 
 }
 
-pre.ciolations:before { 
+pre.violations:before { 
   content: attr(data-content); 
   display: inline-block;
   text-align:left;
