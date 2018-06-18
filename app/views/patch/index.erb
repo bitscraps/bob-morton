@@ -1,70 +1,50 @@
-<div class="sidebar">
-  <nav>
-    <ul>
-      <li>
-        <%= link_to 'All', patch_path() %>
-        <span><%= @last_commit.warnings.count %></span>
-      </li>
-    </ul>
-    <h3>Security</h3>
-    <ul>
-      <li>
-        <%= link_to 'Brakeman', patch_path(source: 'brakeman') %>
-        <span><%= @last_commit.warnings.where(source: 'brakeman').count %></span>
-      </li>
-    </ul>
-    <h3>Style</h3>
-    <ul>
-      <li>
-        <%= link_to 'Rubocop', patch_path(source: 'rubocop') %>
-        <span><%= @last_commit.warnings.where(source: 'rubocop').count %></span>
-      </li>
-    </ul>
-    <h3>Quality</h3>
-    <ul>
-      <li>
-        <%= link_to 'Rails Best Practices', patch_path(source: 'rails_best_practices') %>
-        <span><%= @last_commit.warnings.where(source: 'rails_best_practices').count %></span>
-      </li>
-      <li>
-        <%= link_to 'Reek', patch_path(source: 'reek') %>
-        <span><%= @last_commit.warnings.where(source: 'reek').count %></span>
-      </li>
-    </ul>
-  </nav>
-</div>
+<%= render 'sidebar' %>
+
 <div class="page-content">
   <%- @response.each do |file| %>
-    <div class=file>
-      <%= file.filename %>
-      <div class=patch>
-        <% GitDiffParser::Patch.new(file.patch).changed_lines.each do |line| %>
-          <pre data-content="<%= line.number %>" style="margin:0;padding:0;line-height:1;background-color:<%= line.content.match(/^+/) ? "#EEFFEB" : "#FFECEC" %>"> <%= line.content.gsub(/^[+|-]/, '') %></pre>
-        <% end %>
-      </div>
-      <div class="violations">
-        <% @line_changes = "(#{GitDiffParser::Patch.new(file.patch).changed_lines.map{|cl| cl.number}})" %>
-        <table>
-          <thead>
-            <tr>
-              <td>Source</td>
-              <td>Line</td>
-              <td>Warning</td>
-              <td>Type</td>
-            </tr>
-          </thead>
-          <tbody>
-            <% @last_commit.warnings.where(filename: file.filename, source: @sources).each do |warning| %>
+    <% @line_changes = "(#{GitDiffParser::Patch.new(file.patch).changed_lines.map{|cl| cl.number}})" %>
+    <% @warnings = @last_commit.warnings.where(filename: file.filename, source: @sources) %>
+
+    <% if @warnings.count > 0 %>
+      <div class=file>
+        <%= file.filename %>
+        <div class=patch>
+          <% GitDiffParser::Patch.new(file.patch).changed_lines.each do |line| %>
+            <pre class='violations' data-content="<%= line.number %>" style="margin:0;padding:0;line-height:1;background-color:<%= line.content.match(/^+/) ? "#EEFFEB" : "#FFECEC" %>"> <%= line.content.gsub(/^[+|-]/, '') %></pre>
+          <% end %>
+        </div>
+        <div class="violations">
+          <table>
+            <thead>
               <tr>
-                <td><%= warning.source %></td>
-                <td><%= warning.line_number %></td>
-                <td><%= warning.description %></td>
-                <td><%= warning.log_level %></td>
+                <td>Source</td>
+                <td>Line</td>
+                <td>Warning</td>
+                <td>Type</td>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% warnings.each do |warning| %>
+                <tr>
+                  <td><%= warning.source %></td>
+                  <td><%= warning.line_number %></td>
+                  <td><%= warning.description %></td>
+                  <td><%= warning.log_level %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class=file>
+        <%= file.filename %>
+        <div class=patch>
+          <pre class="no-violations">
+            No violations found in this file.
+          </pre>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

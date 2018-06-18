@@ -1,7 +1,11 @@
 <nav class=header>
-  <i class="fa fa-eye" aria-hidden="true" style='color:#FFF; font-size:48px'></i>
+  <i class="fa fa-eye" aria-hidden="true" style='color:#FFF; font-size:22px'></i>
   Oversight
   <ul class="pull-right">
-    <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+    <li>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <i class='fa fa-sign-out' style="font-size:22px;padding:3px;"></i>
+      <% end %>
+    </li>
   </ul>
 </nav>
