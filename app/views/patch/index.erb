@@ -24,7 +24,7 @@
               </tr>
             </thead>
             <tbody>
-              <% warnings.each do |warning| %>
+              <% @warnings.each do |warning| %>
                 <tr>
                   <td><%= warning.source %></td>
                   <td><%= warning.line_number %></td>
