@@ -31,13 +31,19 @@ td {
   padding:3px 6px;  
 }
 
-pre {  
+pre.no-violations {
+  padding:5px;
+  margin: 0;
+  white-space: normal;
+}
+
+pre.violations {  
   line-height:1.1em; 
   font-family: 'Source Code Pro' !important ;
   font-size: 0.8em !important; 
 }
 
-pre:before { 
+pre.ciolations:before { 
   content: attr(data-content); 
   display: inline-block;
   text-align:left;
