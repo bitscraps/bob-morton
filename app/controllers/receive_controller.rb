@@ -20,9 +20,8 @@ class ReceiveController < ApplicationController
       BrakemanWorker.perform_async(payload)
       RailsBestPracticesWorker.perform_async(payload)
       ReekWorker.perform_async(payload)
-      job = 'opened'
     end
 
-    render plain: "Job #{job} kicked off"
+    render plain: "Job kicked off"
   end
 end

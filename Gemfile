@@ -34,8 +34,7 @@ gem 'rubocop-rspec'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'database_cleaner'
-  gem 'factory_bot'
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
@@ -46,4 +45,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
+end
+
+group :test do
+  gem 'database_cleaner'
 end
