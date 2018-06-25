@@ -1,0 +1,16 @@
+.flash {
+  position: absolute;
+  bottom: 0;
+  width:100%;
+  margin:0%;
+  padding:10px;
+  text-align:center;
+}
+
+.flash-notice {
+  background-color: rgb(42, 241, 74)
+}
+
+.flash-alert {
+  background-color: rgb(250, 0, 25)
+}

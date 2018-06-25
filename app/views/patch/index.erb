@@ -7,7 +7,7 @@
 
     <% if @warnings.count > 0 %>
       <div class=file>
-        <%= file.filename %>
+        <h2><%= file.filename %></h2>
         <div class=patch>
           <% GitDiffParser::Patch.new(file.patch).changed_lines.each do |line| %>
             <pre class='violations' data-content="<%= line.number %>" style="margin:0;padding:0;line-height:1;background-color:<%= line.content.match(/^+/) ? "#EEFFEB" : "#FFECEC" %>"> <%= line.content.gsub(/^[+|-]/, '') %></pre>
@@ -38,11 +38,11 @@
       </div>
     <% else %>
       <div class=file>
-        <%= file.filename %>
+        <h2><%= file.filename %></h2>
         <div class=patch>
-          <pre class="no-violations">
+          <div class="no-violations">
             No violations found in this file.
-          </pre>
+          </div>
         </div>
       </div>
     <% end %>

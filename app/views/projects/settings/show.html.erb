@@ -1,0 +1,21 @@
+<div class='main'>
+  <h1><%= @project.github_project_user %></h1>
+
+  <h2>Users</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Last Login</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.updated_at %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

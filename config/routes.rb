@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   get 'patch/:user/:repo/:pr_number', controller: :patch, action: :index, as: 'patch'
 
-  resources :projects, only: [:index, :create, :new, :show]
+  resources :projects, only: [:index, :create, :new, :show] do
+    resource :settings, only: :show, controller: 'projects/settings'
+  end
 
   root to: "projects#index"
 
