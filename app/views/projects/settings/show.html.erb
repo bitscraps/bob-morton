@@ -1,12 +1,14 @@
-<div class='main'>
-  <h1><%= @project.github_project_user %></h1>
+<% content_for(:breadcrumb) do %>
+  <%= link_to "#{@project.github_project_user}/#{@project.github_project_name}", project_path(@project) %> 
+<% end %>
 
-  <h2>Users</h2>
+<div class='main'>
+  <h3>Users</h3>
   <table>
     <thead>
       <tr>
-        <th>Email</th>
-        <th>Last Login</th>
+        <td>Email</td>
+        <td>Last Login</td>
       </tr>
     </thead>
     <tbody>

@@ -6,6 +6,8 @@ class PatchController < ApplicationController
     @sources = params.key?(:source) ? params[:source] : ['rubocop', 'brakeman', 'rails_best_practices', 'reek']
 
     @last_commit = Commit.where(number: params[:pr_number]).last
+    @branch = @last_commit.branch
+    @project = @branch.project
   end
 
   def client

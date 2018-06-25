@@ -1,32 +1,32 @@
 <div class="sidebar">
   <nav>
     <ul>
-      <li>
+      <li class="<%= 'active' if params[:source].nil? %>">
         <%= link_to 'All', patch_path() %>
         <span><%= @last_commit.warnings.count %></span>
       </li>
     </ul>
     <h3>Security</h3>
     <ul>
-      <li>
+      <li class="<%= 'active' if params[:source] == 'brakeman' %>">
         <%= link_to 'Brakeman', patch_path(source: 'brakeman') %>
         <span><%= @last_commit.warnings.where(source: 'brakeman').count %></span>
       </li>
     </ul>
     <h3>Style</h3>
     <ul>
-      <li>
+      <li class="<%= 'active' if params[:source] == 'rubocop' %>">
         <%= link_to 'Rubocop', patch_path(source: 'rubocop') %>
         <span><%= @last_commit.warnings.where(source: 'rubocop').count %></span>
       </li>
     </ul>
     <h3>Quality</h3>
     <ul>
-      <li>
+      <li class="<%= 'active' if params[:source] == 'rails_best_practices' %>">
         <%= link_to 'Rails Best Practices', patch_path(source: 'rails_best_practices') %>
         <span><%= @last_commit.warnings.where(source: 'rails_best_practices').count %></span>
       </li>
-      <li>
+      <li class="<%= 'active' if params[:source] == 'reek' %>">
         <%= link_to 'Reek', patch_path(source: 'reek') %>
         <span><%= @last_commit.warnings.where(source: 'reek').count %></span>
       </li>

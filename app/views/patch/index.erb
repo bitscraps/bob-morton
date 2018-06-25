@@ -1,5 +1,11 @@
 <%= render 'sidebar' %>
 
+<% content_for(:breadcrumb) do %>
+  <%= link_to "#{@project.github_project_user}/#{@project.github_project_name}", project_path(@project) %> 
+  >>
+  <%= link_to "#{@branch.name}", project_path(@branch) %>
+<% end %>
+
 <div class="page-content">
   <%- @response.each do |file| %>
     <% @line_changes = "(#{GitDiffParser::Patch.new(file.patch).changed_lines.map{|cl| cl.number}})" %>
