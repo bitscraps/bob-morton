@@ -3,6 +3,7 @@
 <% end %>
 
 <div class='main'>
+  <div class="file" style="margin-top:50px;">
   <h3>Users</h3>
   <table>
     <thead>
@@ -20,4 +21,32 @@
       <% end %>
     </tbody>
   </table>
+  </div>
+
+  <div class="file" style="margin-top:50px;">
+  <h3>Invites</h3>
+  <%= form_for @invitation, url: project_invites_path() do |f| %>
+    <%= f.text_field :email %>
+    <%= f.submit :send_invite %>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <td>Email</td>
+        <td>Invited</td>
+        <td>Status</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.invitations.each do |invite| %>
+        <tr>
+          <td><%= invite.email %></td>
+          <td><%= invite.created_at %></ts>
+          <td>pending</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
 </div>

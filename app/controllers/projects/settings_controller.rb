@@ -5,5 +5,6 @@ class Projects::SettingsController < ApplicationController
     @project = Project.find(params[:project_id])
 
     @users = @project.users
+    @invitation = Invitation.new
   end
 end

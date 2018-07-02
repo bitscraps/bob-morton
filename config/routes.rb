@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :projects, only: [:index, :create, :new, :show] do
     resource :settings, only: :show, controller: 'projects/settings'
+
+    resources :invites, controller: 'projects/invites'
   end
 
   root to: "projects#index"
