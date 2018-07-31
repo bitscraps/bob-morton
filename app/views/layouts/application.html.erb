@@ -13,8 +13,12 @@
     <% if user_signed_in? %>
       <%= render partial: 'layouts/user_bar' %>
     <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if notice %>
+      <p class="flash flash-notice"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="flash flash-alert"><%= alert %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>
