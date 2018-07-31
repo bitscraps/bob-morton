@@ -12,12 +12,13 @@
       <% end %>
     </li>
   </ul>
-  <ul class="pull-right">
-    <li>
-      <%= link_to project_settings_path(@project) do %>
-        <i class='fa fa-cog' style="font-size:22px;padding:3px;"></i>
-      <% end %>
-    </li>
-  </ul>
-
+  <% if @project.present? %>
+    <ul class="pull-right">
+      <li>
+        <%= link_to project_settings_path(@project) do %>
+          <i class='fa fa-cog' style="font-size:22px;padding:3px;"></i>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
 </nav>
