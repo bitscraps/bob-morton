@@ -5,7 +5,7 @@
   top:0;
   width:14%;
   height:100%;
-  background-color: #ECECEC;
+  background-color:#ECECE8;
   z-index: 1;
 
   ul {
@@ -14,10 +14,39 @@
     padding:0;
 
     li {
-    padding-left: 0;
+      padding: 3px 10px;
       width: 90%;
       span {
         float: right;
+      }
+
+      a { 
+        color:#333;
+        text-decoration:none;
+      }
+
+      span {
+        display:inline-block;
+        color: #ECECEB;
+        background-color:#8D8D8D;
+        margin:1px;
+        padding:1px 6px;
+        font-size:0.8em;
+        border-radius: 20px;
+      }
+
+      &.active {
+        background-color:#8D8D8D;
+        border-radius: 20px;
+
+        a {
+          color:#ECECEB;
+        }
+
+        span { 
+          color: #8D8D8D;
+          background-color: #ECECE8;
+        }
       }
     }
   }

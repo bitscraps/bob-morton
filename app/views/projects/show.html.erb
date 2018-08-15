@@ -1,3 +1,7 @@
+<% content_for(:breadcrumb) do %>
+  <%= link_to "#{@project.github_project_user}/#{@project.github_project_name}", project_path(@project) %> 
+<% end %>
+
 <div class="main">
   <% if @project.branches.count.zero? %>
     <p>Great</p>
