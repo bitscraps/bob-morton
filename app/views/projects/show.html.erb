@@ -16,9 +16,17 @@
         <% if branch.commits.count.zero? %>
           <%= branch.name %>
         <% else %>
-          <%= link_to branch.name, patch_path(user: branch.project.github_project_user,
+          <div style='width:50%; display: inline-block; text-align: top;'>
+            <%= link_to branch.name, patch_path(user: branch.project.github_project_user,
                                               repo: branch.project.github_project_name,
                                               pr_number: branch.commits.last.number) %>
+          </div>
+          <div style='width:30%; display: inline-block'>
+            <strong>Last Checked:</strong> <%= time_ago_in_words(branch.commits.last.updated_at) %> ago<br>
+          </div>
+          <div style='width:10%; display: inline-block'>
+            <strong>Warnings:</strong> <%= branch.commits.last.warnings.count %>
+          </div>
         <% end %>
       </div>
     <% end %>
