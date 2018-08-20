@@ -11,7 +11,7 @@
       <li>Create your first pull request</li>
     </ol>
   <% else %>
-    <% @project.branches.each do |branch| %>
+    <% @branches.each do |branch| %>
       <div class="project">
         <% if branch.commits.count.zero? %>
           <%= branch.name %>

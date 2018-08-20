@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @branches = @project.branches.includes(commits: :warnings).last_commited
   end
 
   private
