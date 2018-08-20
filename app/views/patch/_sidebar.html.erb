@@ -19,6 +19,10 @@
         <%= link_to 'Rubocop', patch_path(source: 'rubocop') %>
         <span><%= @last_commit.warnings.where(source: 'rubocop').count %></span>
       </li>
+      <li class="<%= 'active' if params[:source] == 'es_lint' %>">
+        <%= link_to 'ESlint', patch_path(source: 'es_lint') %>
+        <span><%= @last_commit.warnings.where(source: 'es_lint').count %></span>
+      </li>
     </ul>
     <h3>Quality</h3>
     <ul>

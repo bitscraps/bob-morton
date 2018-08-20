@@ -20,6 +20,7 @@ class ReceiveController < ApplicationController
       BrakemanWorker.perform_async(payload)
       RailsBestPracticesWorker.perform_async(payload)
       ReekWorker.perform_async(payload)
+      EsLintWorker.perform_async(payload)
       job = 'opened'
     end
 
