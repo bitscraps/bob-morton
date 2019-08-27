@@ -26,6 +26,7 @@ gem 'octokit', '~> 4.0'
 
 gem 'pronto'
 gem 'pronto-brakeman'
+gem 'pronto-eslint'
 gem 'pronto-rails_best_practices'
 gem 'pronto-reek'
 gem 'pronto-rubocop'
