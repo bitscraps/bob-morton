@@ -2,7 +2,7 @@ require 'sidekiq'
 require 'sidekiq/web'
 
 Sidekiq.configure_server do |config|
-  config.redis = { size: 1 }
+  config.redis = { size: 4 }
 end
 
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
