@@ -32,6 +32,7 @@ gem 'pronto-reek'
 gem 'pronto-rubocop'
 gem 'rubocop', '~> 0.81'
 gem 'rubocop-rspec'
+gem 'rubocop-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri
