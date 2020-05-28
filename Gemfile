@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.3.7'
 
 gem 'rails', '~> 5.0.0'
 
@@ -30,7 +30,7 @@ gem 'pronto-eslint'
 gem 'pronto-rails_best_practices'
 gem 'pronto-reek'
 gem 'pronto-rubocop'
-gem 'rubocop'
+gem 'rubocop', '~> 0.81'
 gem 'rubocop-rspec'
 
 group :development, :test do
